@@ -1,7 +1,7 @@
 from celery import Celery
-from .settings import CELERY_BROKER, CELERY_TIMEZONE
+from celery_service.settings import Setting
 from celery.schedules import crontab
-app = Celery("celery service", broker=CELERY_BROKER, include=['tasks'])
+app = Celery("celery service", broker=Setting.CELERY_BROKER, include=['tasks'])
 
 app.conf.beat_schedule = {
     'add-every-10-seconds': {
@@ -11,4 +11,4 @@ app.conf.beat_schedule = {
 
 }
 
-app.conf.timezone = CELERY_TIMEZONE
+app.conf.timezone = Setting.CELERY_TIMEZONE
