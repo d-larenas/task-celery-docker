@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  celery_beat_app:
+    build:
+      context: .
+      dockerfile: compose/Dockerfile
+    image: image_celery_beat
+    container_name: celery_beat_app
+    volumes:
+      - .:/app:z
+    env_file:
+      - .envs/.local
+    depends_on:
+      - redis
+    command: /start
+
+  redis:
+    image: 'bitnami/redis:latest'
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
